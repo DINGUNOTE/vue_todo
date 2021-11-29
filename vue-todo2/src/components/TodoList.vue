@@ -1,12 +1,12 @@
 <template>
   <div>
-    <ul>
+    <transition-group name="list" tag="ul">
       <li class="shadow" v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item"> <!-- propsdata라는 배열 안에서 todoItem 갯수만큼 for문을 돌리겠다. 배열의 index를 같이 받아온다 -->
         <span class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"><i class="fas fa-check"></i></span> <!-- complete 값이 true이면 클래스 추가 -->
         <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <span class="removeBtn" v-on:click="removeTodo(todoItem, index)"><i class="fas fa-trash-alt"></i></span> <!-- 메소드에 todoItem 값과, index를 같이 넘겨준다 -->
       </li> 
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -32,4 +32,14 @@ export default {
   .checkBtnCompleted{color:#b3adad;cursor:pointer;}
   .removeBtn{margin-left:auto;color:#de4343;cursor:pointer;}
   .textCompleted{color:#b3adad;text-decoration:line-through;}
+
+  /* 리스트 아이템 트랜지션 효과 */
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  /* // 리스트 아이템 트랜지션 효과 */
 </style>
