@@ -22,7 +22,7 @@ export default {
   methods: {
     addOneItem: function(todoItem){
       // 로컬스토리지에 입력값 저장
-      var obj = {completed: false, item: todoItem}; // 완료 여부 체크값을 추가하기 위해서 객체를 만듦
+      const obj = {completed: false, item: todoItem}; // 완료 여부 체크값을 추가하기 위해서 객체를 만듦
       localStorage.setItem(todoItem, JSON.stringify(obj)); // JSON.stringify : 자바스크립트 객체를 문자열로 변환해주는 API
       this.todoItems.push(obj);
     },
@@ -44,7 +44,7 @@ export default {
   },
   created: function(){
     if(localStorage.length > 0){
-      for(var i=0; i < localStorage.length; i++){
+      for(let i=0; i < localStorage.length; i++){
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
           this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
 
