@@ -14,35 +14,35 @@ import TodoList from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
-  data: function(){
+  data(){
     return{
       todoItems: []
     }
   },
   methods: {
-    addOneItem: function(todoItem){
+    addOneItem(todoItem){
       // 로컬스토리지에 입력값 저장
       const obj = {completed: false, item: todoItem}; // 완료 여부 체크값을 추가하기 위해서 객체를 만듦
       localStorage.setItem(todoItem, JSON.stringify(obj)); // JSON.stringify : 자바스크립트 객체를 문자열로 변환해주는 API
       this.todoItems.push(obj);
     },
-    removeOneItem: function(todoItem, index){
+    removeOneItem(todoItem, index){
       localStorage.removeItem(todoItem.item); // 로컬스토리지에서 값을 삭제
       this.todoItems.splice(index, 1); // 배열에서 해당 인덱스에 해당하는 값을 1개 삭제한다.
     },
-    toggleOneItem: function(todoItem, index){
+    toggleOneItem(todoItem, index){
       // todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
       // 로컬 스토리지의 데이터 갱신
       localStorage.removeItem(todoItem, index);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems: function(){
+    clearAllItems(){
       this.todoItems = []; // 리스트 배열 초기화
       localStorage.clear(); // 로컬스토리지 비우기
     }
   },
-  created: function(){
+  created(){
     if(localStorage.length > 0){
       for(let i=0; i < localStorage.length; i++){
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){

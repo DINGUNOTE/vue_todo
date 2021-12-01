@@ -23,14 +23,14 @@
 <script>
 import Modal from './common/Modal.vue';
 export default {
-  data: function(){
+  data(){
     return{
       newTodoItem: "",
       showModal: false
     }
   },
   methods: {
-    addTodo: function(){
+    addTodo(){
       if(this.newTodoItem !== ''){ // 아이템에 값이 있을 때
         this.$emit('addTodoItem', this.newTodoItem) // $emit('이벤트 이름', 인자1, 인자2....)
         this.clearInput();
@@ -39,7 +39,7 @@ export default {
       }
       
     },
-    clearInput: function(){
+    clearInput(){
       this.newTodoItem = '';
     },
     
