@@ -1,26 +1,31 @@
 <template>
   <div>
     <transition-group name="list" tag="ul">
-      <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item"> <!-- propsdata라는 배열 안에서 todoItem 갯수만큼 for문을 돌리겠다. 배열의 index를 같이 받아온다 -->
-        <span class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)"><i class="fas fa-check"></i></span> <!-- complete 값이 true이면 클래스 추가 -->
+      <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item"> <!-- propsdata라는 배열 안에서 todoItem 갯수만큼 for문을 돌리겠다. 배열의 index를 같이 받아온다 --> <!-- 인자를 두개 보내던 것을 객체화해서 하나로 보낸다. -->
+        <span class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete({todoItem, index})"><i class="fas fa-check"></i></span> <!-- complete 값이 true이면 클래스 추가 --> <!-- 인자를 두개 보내던 것을 객체화해서 하나로 보낸다. -->
         <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)"><i class="fas fa-trash-alt"></i></span> <!-- 메소드에 todoItem 값과, index를 같이 넘겨준다 -->
+        <span class="removeBtn" v-on:click="removeTodo({todoItem, index})"><i class="fas fa-trash-alt"></i></span> <!-- 메소드에 todoItem 값과, index를 같이 넘겨준다 -->
       </li> 
     </transition-group>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   methods: {
-    removeTodo(todoItem, index){
-      this.$store.commit('removeOneItem', {todoItem, index});
-    },
-    toggleComplete(todoItem, index){
-      this.$store.commit('toggleOneItem', {todoItem, index});
-    }
+    // removeTodo(todoItem, index){
+    //   this.$store.commit('removeOneItem', {todoItem, index});
+      
+    // },
+    // toggleComplete(todoItem, index){
+    //   this.$store.commit('toggleOneItem', {todoItem, index});
+    // }
+    ...mapMutations({
+      removeTodo: 'removeOneItem', // 인자를 선언하지 않아도 호출되는 시점의 인자가 적용된다.
+      toggleComplete: 'toggleOneItem'
+    }),
   },
   computed: {
     // todoItems() {
